@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.jho.alana.hanoi.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGerar"
+        android:textColor="@color/colorText"
+        android:textSize="20dp"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorBtn"/>
+
+    <TextView
+        android:layout_width="15dp"
+        android:layout_height="200dp"
+        android:id="@+id/hasteTorre1"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="43dp"
+        android:background="@color/colorTorre"/>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/torre1"
+        android:layout_marginTop="350dp"
+        android:background="@color/colorTorre"/>
+
+    <TextView
+        android:layout_width="15dp"
+        android:layout_height="200dp"
+        android:id="@+id/hasteTorre2"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="164dp"
+        android:background="@color/colorTorre"/>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/torre2"
+        android:layout_marginTop="350dp"
+        android:background="@color/colorTorre"
+        android:layout_marginLeft="120dp"/>
+
+    <TextView
+        android:layout_width="15dp"
+        android:layout_height="200dp"
+        android:id="@+id/hasteTorre3"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="284dp"
+        android:background="@color/colorTorre"/>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/torre3"
+        android:layout_marginTop="350dp"
+        android:background="@color/colorTorre"
+        android:layout_marginLeft="240dp"/>
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hanoi</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="btnGerar">Gerar torre</string>
+    <string name="btnResolve">Resolver torre</string>
+</resources>
