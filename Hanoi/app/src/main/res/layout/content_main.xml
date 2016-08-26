@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.jho.alana.hanoi.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/btnGenerate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGenerate"
+        android:textColor="@color/colorTextBtn"
+        android:textSize="20dp"
+        android:background="@color/colorBtnGenerate"/>
+
+    <TextView
+        android:id="@+id/stemTower1"
+        android:layout_width="15dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginLeft="48dp"
+        android:background="@color/colorTower"/>
+
+    <TextView
+        android:id="@+id/baseTower1"
+        android:layout_width="110dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="350dp"
+        android:background="@color/colorTower"/>
+
+    <TextView
+        android:id="@+id/stemTower2"
+        android:layout_width="15dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginLeft="168dp"
+        android:background="@color/colorTower"/>
+
+    <TextView
+        android:id="@+id/baseTower2"
+        android:layout_width="110dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="120dp"
+        android:background="@color/colorTower"/>
+
+    <TextView
+        android:id="@+id/stemTower3"
+        android:layout_width="15dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginLeft="288dp"
+        android:background="@color/colorTower"/>
+
+    <TextView
+        android:id="@+id/baseTower3"
+        android:layout_width="110dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="240dp"
+        android:background="@color/colorTower"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/btnGenerate"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
