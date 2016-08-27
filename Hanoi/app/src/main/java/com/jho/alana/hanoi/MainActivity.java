@@ -13,6 +13,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.jho.alana.async.HanoiTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HanoiTask hanoi = new HanoiTask(MainActivity.this, 16);
+                hanoi.execute();
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
