@@ -17,8 +17,13 @@ import com.jho.alana.async.HanoiTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener {
+
+    Stack stackA = new Stack();
+    Stack stackB = new Stack();
+    Stack stackC = new Stack();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -20,7 +21,7 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
 
   Stack stack = new Stack();
 
-  Queue queue;
+  Queue queue = new LinkedList();
 
   public HanoiTask(Activity context, int qntDiscs){
     this.mActivity = context;
@@ -32,12 +33,20 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
     if(n == 1){
       System.out.println("Mover disco " + n + " de " +
           ori + " para " + dest);
+      onAddQueue(n, ori, dest);
     }else{
       hanoi(n - 1, ori, aux, dest);
       System.out.println("Mover disco " + n + " de " +
           ori + " para " + dest);
+      onAddQueue(n, ori, dest);
       hanoi(n - 1, aux, dest, ori);
     }
+  }
+
+  private void onAddQueue(int n, char ori, char dest){
+    queue.add(n);
+    queue.add(ori);
+    queue.add(dest);
   }
 
   @Override protected void onPreExecute(){
