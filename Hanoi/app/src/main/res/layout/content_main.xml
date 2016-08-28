@@ -17,7 +17,28 @@
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginTop="150dp"
+        android:elevation="8dp"
         android:layout_marginLeft="0dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDiscs2"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="116dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDiscs3"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
         android:orientation="vertical">
     </LinearLayout>
 

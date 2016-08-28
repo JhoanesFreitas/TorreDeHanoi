@@ -39,7 +39,7 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
   }
 
   @Override protected String doInBackground(Void... voids){
-    //hanoi(qntDiscs, 'A', 'B', 'C');
+    hanoi(qntDiscs, 'A', 'B', 'C');
     return FINISH_HANOI;
   }
 

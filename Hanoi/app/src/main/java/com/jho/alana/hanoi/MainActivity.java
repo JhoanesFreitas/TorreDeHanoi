@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   Stack stack = new Stack();
 
   private Spinner spinner;
+  private Spinner spinnerTime;
   private LinearLayout layout;
 
   private View towerBaseOne;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   private View towerBaseThree;
   private Integer qntDiscsIncrement;
   private List<Integer> qtdDiscs;
+  private List<Integer> timeExecute;
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -49,7 +52,15 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     fab.setOnClickListener(new View.OnClickListener(){
       @Override
       public void onClick(View view){
-        HanoiTask hanoi = new HanoiTask(MainActivity.this, 16);
+
+        if(qntDiscsIncrement == null){
+          Snackbar.make(view, "Talvez você tenha esquecido de gerar a torre!", Snackbar.LENGTH_LONG)
+              .setAction("Action", null).show();
+          return;
+        }
+
+        HanoiTask hanoi = new HanoiTask(MainActivity.this, qntDiscsIncrement);
+        Log.d("discs", qntDiscsIncrement + "");
         hanoi.execute();
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show();
@@ -57,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     });
 
     spinner = (Spinner) findViewById(R.id.qtdDiscs);
+    spinnerTime = (Spinner) findViewById(R.id.qtdDiscs2);
 
     spinner.setOnItemSelectedListener(this);
+    spinnerTime.setOnItemSelectedListener(this);
 
     qtdDiscs = new ArrayList<Integer>();
 
@@ -73,6 +86,17 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     spinner.setAdapter(dataAdapter);
+
+    timeExecute = new ArrayList<Integer>();
+    timeExecute.add(2);
+    timeExecute.add(5);
+    timeExecute.add(10);
+    timeExecute.add(15);
+
+    ArrayAdapter<Integer> dataAdapterTime = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, timeExecute);
+    dataAdapterTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    spinnerTime.setAdapter(dataAdapterTime);
   }
 
   public void onClick(View view){
@@ -95,17 +119,42 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
       if(qntDiscsIncrement <= 16){
         layoutParams = new LinearLayout.LayoutParams(
-            90 + i * 7,15
+            90 + i * 7, 15
         );
 
-        //layoutParams.setMargins(50 - (i * 3), 1, 1, 1);
-        layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER;
-        layout.addView(newTower, layoutParams);
+      }
+      else if(qntDiscsIncrement == 32){
+        layoutParams = new LinearLayout.LayoutParams(
+            10 + i * 7, 9
+        );
       }
       else {
-        layout.addView(newTower, 10 + i * 7, 10);
+        layoutParams = new LinearLayout.LayoutParams(
+            6 + i * 4, 5
+        );
       }
+
+      if(i == 0){
+        addTam(layoutParams);
+      }
+
+      layoutParams.gravity = Gravity.CENTER;
+      layout.addView(newTower, layoutParams);
+
     }
+  }
+
+  private void addTam(LinearLayout.LayoutParams params){
+    if(qntDiscsIncrement == 4)
+      params.topMargin = 240;
+    else if(qntDiscsIncrement == 8)
+      params.topMargin = 240 - 60;
+    else if(qntDiscsIncrement == 16)
+      params.topMargin = 240 - 180;
+    else if(qntDiscsIncrement == 32)
+      params.topMargin = 240 - 225;
+    else
+      params.topMargin = 240 - 230;
   }
 
 
