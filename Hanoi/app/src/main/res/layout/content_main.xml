@@ -12,65 +12,109 @@
     tools:context="com.jho.alana.hanoi.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <LinearLayout
+        android:id="@+id/layoutDiscs"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="0dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDiscs2"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="116dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDiscs3"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvOne"
+        android:text="Quantidade de discos"/>
+
+    <Spinner
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOne"
+        android:id="@+id/qtdDiscs" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTwo"
+        android:layout_alignParentRight="true"
+        android:text="Tempo de execução"/>
+
+    <Spinner
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tvTwo"
+        android:id="@+id/qtdDiscs2" />
+
+    <View
+        android:id="@+id/stemTower1"
+        style="@style/ViewThemeHanoi"
+        android:layout_marginLeft="43dp"
+        android:background="@color/colorTower"/>
+
+    <View
+        android:id="@+id/baseTower1"
+        style="@style/ViewThemeHanoiBase"
+        android:layout_below="@id/stemTower1"
+        android:background="@color/colorTower"/>
+
+    <View
+        android:id="@+id/stemTower2"
+        style="@style/ViewThemeHanoi"
+        android:layout_marginLeft="160dp"
+        android:background="@color/colorTower"/>
+
+    <View
+        android:id="@+id/baseTower2"
+        style="@style/ViewThemeHanoiBase"
+        android:layout_below="@id/stemTower2"
+        android:layout_marginLeft="115dp"
+        android:background="@color/colorTower"/>
+
+    <View
+        android:id="@+id/stemTower3"
+        style="@style/ViewThemeHanoi"
+        android:layout_marginLeft="273dp"
+        android:background="@color/colorTower"/>
+
+    <View
+        android:id="@+id/baseTower3"
+        style="@style/ViewThemeHanoiBase"
+        android:layout_below="@id/stemTower3"
+        android:layout_marginLeft="230dp"
+        android:background="@color/colorTower"/>
+
     <Button
         android:id="@+id/btnGenerate"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:text="@string/btnGenerate"
+        android:onClick="onClick"
         android:textColor="@color/colorTextBtn"
         android:textSize="15dp"
         android:background="@color/colorBtnGenerate"/>
 
-    <TextView
-        android:id="@+id/stemTower1"
-        android:layout_width="15dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginLeft="43dp"
-        android:background="@color/colorTower"/>
-
-    <TextView
-        android:id="@+id/baseTower1"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="350dp"
-        android:background="@color/colorTower"/>
-
-    <TextView
-        android:id="@+id/stemTower2"
-        android:layout_width="15dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginLeft="160dp"
-        android:background="@color/colorTower"/>
-
-    <TextView
-        android:id="@+id/baseTower2"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginLeft="115dp"
-        android:background="@color/colorTower"/>
-
-    <TextView
-        android:id="@+id/stemTower3"
-        android:layout_width="15dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginLeft="273dp"
-        android:background="@color/colorTower"/>
-
-    <TextView
-        android:id="@+id/baseTower3"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginLeft="230dp"
-        android:background="@color/colorTower"/>
-
-    <Spinner
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/qtdDiscs" />
 </RelativeLayout>
