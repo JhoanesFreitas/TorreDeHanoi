@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   private View towerBaseOne;
   private View towerBaseTwo;
   private View towerBaseThree;
+  private View newTower;
   private Integer qntDiscsIncrement;
   private List<Integer> qtdDiscs;
   private List<Integer> timeExecute;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
           return;
         }
 
-        HanoiTask hanoi = new HanoiTask(MainActivity.this, qntDiscsIncrement);
+        HanoiTask hanoi = new HanoiTask(MainActivity.this, qntDiscsIncrement, newTower);
         Log.d("discs", qntDiscsIncrement + "");
         hanoi.execute();
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     LinearLayout.LayoutParams layoutParams;
 
     for(int i = 0; i < qntDiscsIncrement; i++){
-      View newTower = new View(this);
+      newTower = new View(this);
       newTower.setBackgroundColor(Color.rgb(random.nextInt(), random.nextInt(), random.nextInt()));
 
 
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
     }
   }
-
+  //Posição dos discos quanto à base
   private void addTam(LinearLayout.LayoutParams params){
     if(qntDiscsIncrement == 4)
       params.topMargin = 240;
