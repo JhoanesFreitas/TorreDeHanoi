@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         layoutParams = new LinearLayout.LayoutParams(
             90 + i * 7, 15
         );
-
       }
       else if(qntDiscsIncrement == 32){
         layoutParams = new LinearLayout.LayoutParams(
