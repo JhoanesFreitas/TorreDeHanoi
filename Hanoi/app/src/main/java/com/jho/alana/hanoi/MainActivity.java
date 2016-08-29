@@ -1,7 +1,6 @@
 package com.jho.alana.hanoi;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,26 +16,30 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.jho.alana.async.HanoiTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener{
 
-  Stack stack = new Stack();
+  private Stack stackA;
+  private Stack stackB;
+  private Stack stackC;
+  private Stack stackAux;
+  //private Queue queue;
+
 
   private Spinner spinner;
   private Spinner spinnerTime;
-  private LinearLayout layout;
+  private LinearLayout layoutTowerA;
+  private LinearLayout layoutTowerB;
+  private LinearLayout layoutTowerC;
 
-  private View towerBaseOne;
-  private View towerBaseTwo;
-  private View towerBaseThree;
   private View newTower;
   private Integer qntDiscsIncrement;
   private List<Integer> qtdDiscs;
@@ -60,8 +63,9 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
           return;
         }
 
-        HanoiTask hanoi = new HanoiTask(MainActivity.this, qntDiscsIncrement, newTower);
+        HanoiTask hanoi = new HanoiTask(MainActivity.this, qntDiscsIncrement, stackA, stackB, stackC);
         Log.d("discs", qntDiscsIncrement + "");
+        hanoi.setLayouts(layoutTowerA, layoutTowerB, layoutTowerC);
         hanoi.execute();
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show();
@@ -101,22 +105,27 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   }
 
   public void onClick(View view){
-    towerBaseOne = findViewById(R.id.baseTower1);
-    towerBaseOne = findViewById(R.id.baseTower2);
-    towerBaseOne = findViewById(R.id.baseTower3);
-    layout = (LinearLayout) findViewById(R.id.layoutDiscs);
+    layoutTowerA = (LinearLayout) findViewById(R.id.layoutDiscs);
+    layoutTowerB = (LinearLayout) findViewById(R.id.layoutDiscs2);
+    layoutTowerC = (LinearLayout) findViewById(R.id.layoutDiscs3);
+    stackAux = new Stack();
 
-    layout.removeAllViews();
+    startStacks();
+
+    layoutTowerA.removeAllViews();
+    layoutTowerB.removeAllViews();
+    layoutTowerC.removeAllViews();
 
     Random random = new Random(10);
     qntDiscsIncrement =  qtdDiscs.get(spinner.getSelectedItemPosition());
     LinearLayout.LayoutParams layoutParams;
 
+    int var = qntDiscsIncrement;
+
     for(int i = 0; i < qntDiscsIncrement; i++){
       newTower = new View(this);
       newTower.setBackgroundColor(Color.rgb(random.nextInt(), random.nextInt(), random.nextInt()));
-
-
+      newTower.setId(var--);
 
       if(qntDiscsIncrement <= 16){
         layoutParams = new LinearLayout.LayoutParams(
@@ -140,10 +149,17 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
       }
 
       layoutParams.gravity = Gravity.CENTER;
-      layout.addView(newTower, layoutParams);
-
+      layoutTowerA.addView(newTower, layoutParams);
+      stackAux.push(newTower);
     }
+    addOnStackA();
   }
+
+  private void addOnStackA(){
+    while(!stackAux.isEmpty())
+      stackA.push(stackAux.pop());
+  }
+
   //Posição dos discos quanto à base
   private void addTam(LinearLayout.LayoutParams params){
     if(qntDiscsIncrement == 4)
@@ -156,6 +172,32 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
       params.topMargin = 240 - 225;
     else
       params.topMargin = 240 - 230;
+  }
+
+  private void startStacks(){
+    stackA = new Stack();
+    stackB = new Stack();
+    stackC = new Stack();
+  }
+
+  /////////////////////////
+
+  public void hanoi(Queue queue){
+    View mTowerView;
+    Integer n;
+    while(!queue.isEmpty()){
+      n = (Integer) queue.remove();
+      layoutTowerA = (LinearLayout) queue.remove();
+      layoutTowerB = (LinearLayout) queue.remove();
+
+      mTowerView = layoutTowerA.findViewById(n);
+
+      if(mTowerView != null){
+        layoutTowerA.removeView(mTowerView);
+        layoutTowerB.addView(mTowerView);
+      }
+
+    }
   }
 
 

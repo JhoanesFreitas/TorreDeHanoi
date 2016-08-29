@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.jho.alana.hanoi.MainActivity;
@@ -21,25 +22,33 @@ import static com.jho.alana.Constatns.INIT_PROGRESS;
 
 public class HanoiTask extends AsyncTask<Void, Void, String>{
 
-  Stack ori = new Stack();
-  Stack dest = new Stack();
-  Stack aux = new Stack();
+  private Stack ori;
+  private Stack dest;
+  private Stack aux;
   
   private ProgressDialog mProgress;
-  private Activity mActivity;
+  private MainActivity mActivity;
   private int qntDiscs;
   private View view;
 
-  MainActivity mainActivity = new MainActivity();
-
-  //Stack stack = new Stack();
+  private LinearLayout layoutTowerA;
+  private LinearLayout layoutTowerB;
+  private LinearLayout layoutTowerC;
 
   Queue queue = new LinkedList();
 
-  public HanoiTask(Activity context, int qntDiscs, View view){
+  public HanoiTask(MainActivity context, int qntDiscs, View view){
     this.mActivity = context;
     this.qntDiscs = qntDiscs;
     this.view = view;
+  }
+
+  public HanoiTask(MainActivity context, int qntDiscs, Stack ori, Stack dest, Stack aux){
+    this.mActivity = context;
+    this.qntDiscs = qntDiscs;
+    this.ori = ori;
+    this.dest = dest;
+    this.aux = aux;
   }
 
   @Override protected void onPreExecute(){
@@ -51,7 +60,7 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
   }
 
   @Override protected String doInBackground(Void... voids){
-    hanoi(qntDiscs, ori, aux, dest);
+    hanoi(qntDiscs, layoutTowerA, layoutTowerB, layoutTowerC);
     return FINISH_HANOI;
   }
 
@@ -59,9 +68,14 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
   @Override protected void onPostExecute(String string){
     mProgress.dismiss();
     Toast.makeText(mActivity, string, Toast.LENGTH_SHORT).show();
+
+    mActivity.hanoi(queue);
+    //HanoiUITask hanoiUITask = new HanoiUITask(queue);
+    //hanoiUITask.setLayouts(layoutTowerA, layoutTowerB, layoutTowerC);
+    //hanoiUITask.execute();
   }
 
-  /*private void hanoi(int n, char ori, char dest, char aux){
+  private void hanoi(int n, LinearLayout ori, LinearLayout dest, LinearLayout aux){
 
     if(n == 1){
       System.out.println("Mover disco " + n + " de " +
@@ -73,27 +87,34 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
           ori + " para " + dest);
       onAddQueue(n, ori, dest);
       hanoi(n - 1, aux, dest, ori);
+      //onAddQueue(n, ori, dest);
     }
-  }*/
+  }
 
-  private void onAddQueue(int n, Stack ori, Stack dest){
+  private void onAddQueue(int n, LinearLayout ori, LinearLayout dest){
     queue.add(n);
     queue.add(ori);
     queue.add(dest);
   }
 
-  private void hanoi(int n, Stack ori, Stack dest, Stack aux){
+  public void setLayouts(LinearLayout layoutTowerA, LinearLayout layoutTowerB, LinearLayout layoutTowerC){
+    this.layoutTowerA = layoutTowerA;
+    this.layoutTowerB = layoutTowerB;
+    this.layoutTowerC = layoutTowerC;
+  }
+
+  /*private void hanoi(int n, Stack ori, Stack dest, Stack aux){
 
     /*if(view == 1){
       dest.push(ori.pop());
       onAddQueue(n, ori, dest);
     }*/
-    hanoi(n - 1, ori, aux, dest);
+    /*hanoi(n - 1, ori, aux, dest);
     dest.push(ori.peek());
     ori.pop();
     onAddQueue(n, ori, dest);
     hanoi(n - 1, aux, dest, ori);
 
-  }
+  }*/
 
 }
