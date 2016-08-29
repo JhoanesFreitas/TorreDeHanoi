@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     layoutTowerA = (LinearLayout) findViewById(R.id.layoutDiscs);
     layoutTowerB = (LinearLayout) findViewById(R.id.layoutDiscs2);
     layoutTowerC = (LinearLayout) findViewById(R.id.layoutDiscs3);
+
+    layoutTowerA.setRotation(180);
+    layoutTowerB.setRotation(180);
+    layoutTowerC.setRotation(180);
     stackAux = new Stack();
 
     startStacks();
@@ -124,12 +128,12 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     qntDiscsIncrement =  qtdDiscs.get(spinner.getSelectedItemPosition());
     LinearLayout.LayoutParams layoutParams;
 
-    int var = qntDiscsIncrement;
+    int var = 1;/*qntDiscsIncrement*/
 
     for(int i = 0; i < qntDiscsIncrement; i++){
       newTower = new View(this);
       newTower.setBackgroundColor(Color.rgb(random.nextInt(), random.nextInt(), random.nextInt()));
-      newTower.setId(var--);
+      newTower.setId(var++);
 
       if(qntDiscsIncrement <= 16){
         layoutParams = new LinearLayout.LayoutParams(
