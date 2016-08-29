@@ -7,4 +7,9 @@
     <color name="colorTorre">#656565</color>
     <color name="colorBtn">#483D8B</color>
     <color name="colorText">#ffffff</color>
+
+    <color name="colorBtnGenerate">#483D8B</color>
+    <color name="colorTextBtn">#ffffff</color>
+    <color name="colorTower">#696969</color>
+
 </resources>
