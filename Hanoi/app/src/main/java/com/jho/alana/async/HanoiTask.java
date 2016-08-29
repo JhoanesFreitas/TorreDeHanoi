@@ -15,6 +15,7 @@ import java.util.Stack;
 
 import static com.jho.alana.Constatns.FINISH_HANOI;
 import static com.jho.alana.Constatns.INIT_PROGRESS;
+import static com.jho.alana.Constatns.countChange;
 
 /**
  * Created by jhoanesfreitas on 26/08/16.
@@ -70,6 +71,7 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
     Toast.makeText(mActivity, string, Toast.LENGTH_SHORT).show();
 
     mActivity.hanoi(queue);
+    mActivity.setQntDiscsIncrement(null);
     //HanoiUITask hanoiUITask = new HanoiUITask(queue);
     //hanoiUITask.setLayouts(layoutTowerA, layoutTowerB, layoutTowerC);
     //hanoiUITask.execute();
@@ -81,10 +83,12 @@ public class HanoiTask extends AsyncTask<Void, Void, String>{
       System.out.println("Mover disco " + n + " de " +
           ori + " para " + dest);
       onAddQueue(n, ori, dest);
+      countChange++;
     }else{
       hanoi(n - 1, ori, aux, dest);
       System.out.println("Mover disco " + n + " de " +
-          ori + " para " + dest);
+              ori + " para " + dest);
+      countChange++;
       onAddQueue(n, ori, dest);
       hanoi(n - 1, aux, dest, ori);
       //onAddQueue(n, ori, dest);

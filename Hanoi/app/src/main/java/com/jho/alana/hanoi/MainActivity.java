@@ -17,7 +17,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.jho.alana.Constatns;
 import com.jho.alana.async.HanoiTask;
 
 import java.util.ArrayList;
@@ -32,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   private Stack stackB;
   private Stack stackC;
   private Stack stackAux;
-  //private Queue queue;
-
 
   private Spinner spinner;
   private Spinner spinnerTime;
@@ -41,14 +41,13 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   private LinearLayout layoutTowerB;
   private LinearLayout layoutTowerC;
 
-  private LinearLayout layoutTowerOri;
-  private LinearLayout layoutTowerDest;
-
   private View newTower;
-  private Integer qntDiscsIncrement;
-  private List<Integer> qtdDiscs;
-  private List<Integer> timeExecute;
 
+  private Integer qntDiscsIncrement;
+
+  private Double timeExecuteSpinner;
+  private List<Integer> qtdDiscs;
+  private List<Double> timeExecute;
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
@@ -71,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         Log.d("discs", qntDiscsIncrement + "");
         hanoi.setLayouts(layoutTowerA, layoutTowerB, layoutTowerC);
         hanoi.execute();
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
       }
     });
 
@@ -96,13 +93,13 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
     spinner.setAdapter(dataAdapter);
 
-    timeExecute = new ArrayList<Integer>();
-    timeExecute.add(2);
-    timeExecute.add(5);
-    timeExecute.add(10);
-    timeExecute.add(15);
+    timeExecute = new ArrayList<Double>();
+    timeExecute.add(0.3);
+    timeExecute.add(0.5);
+    timeExecute.add(1.0);
+    timeExecute.add(2.0);
 
-    ArrayAdapter<Integer> dataAdapterTime = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, timeExecute);
+    ArrayAdapter<Double> dataAdapterTime = new ArrayAdapter<Double>(this, android.R.layout.simple_spinner_item, timeExecute);
     dataAdapterTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     spinnerTime.setAdapter(dataAdapterTime);
@@ -126,28 +123,29 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
     Random random = new Random(10);
     qntDiscsIncrement =  qtdDiscs.get(spinner.getSelectedItemPosition());
+    timeExecuteSpinner = timeExecute.get(spinnerTime.getSelectedItemPosition());
     LinearLayout.LayoutParams layoutParams;
 
-    int var = 1;/*qntDiscsIncrement*/
+    int var = qntDiscsIncrement;
 
     for(int i = 0; i < qntDiscsIncrement; i++){
       newTower = new View(this);
       newTower.setBackgroundColor(Color.rgb(random.nextInt(), random.nextInt(), random.nextInt()));
-      newTower.setId(var++);
+      newTower.setId(var--);
 
       if(qntDiscsIncrement <= 16){
         layoutParams = new LinearLayout.LayoutParams(
-            90 + i * 7, 15
+            200 - i * 7, 15
         );
       }
       else if(qntDiscsIncrement == 32){
         layoutParams = new LinearLayout.LayoutParams(
-            10 + i * 7, 9
+            200 - i * 7, 9
         );
       }
       else {
         layoutParams = new LinearLayout.LayoutParams(
-            6 + i * 4, 5
+            200 - i * 4, 5
         );
       }
 
@@ -157,9 +155,9 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
       layoutParams.gravity = Gravity.CENTER;
       layoutTowerA.addView(newTower, layoutParams);
-      stackAux.push(newTower);
+      stackA.push(newTower);
     }
-    addOnStackA();
+    //addOnStackA();
   }
 
   private void addOnStackA(){
@@ -169,16 +167,17 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
   //Posição dos discos quanto à base
   private void addTam(LinearLayout.LayoutParams params){
-    if(qntDiscsIncrement == 4)
-      params.topMargin = 240;
+    params.topMargin = 0;
+   /* if(qntDiscsIncrement == 4)
+      params.topMargin = 0;
     else if(qntDiscsIncrement == 8)
-      params.topMargin = 240 - 60;
+      params.topMargin = 0;
     else if(qntDiscsIncrement == 16)
-      params.topMargin = 240 - 180;
+      params.topMargin = 0;
     else if(qntDiscsIncrement == 32)
-      params.topMargin = 240 - 225;
+      params.topMargin = 225;
     else
-      params.topMargin = 240 - 230;
+      params.topMargin = 230;*/
   }
 
   private void startStacks(){
@@ -191,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
   public void hanoi(final Queue queue){
 
-    new CountDownTimer(3000, 1000) {
+    new CountDownTimer((long) (timeExecuteSpinner * 1000), 1000) {
 
       @Override
       public void onTick(long millisUntilFinished) {
@@ -219,11 +218,20 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
         if (queue.isEmpty()) {
           this.cancel();
+          Toast.makeText(MainActivity.this, Constatns.FINISH_CHANGE + Constatns.countChange + " movimentos!", Toast.LENGTH_SHORT).show();
         } else {
           hanoi(queue);
         }
       }
     }.start();
+  }
+
+  public Integer getQntDiscsIncrement() {
+    return qntDiscsIncrement;
+  }
+
+  public void setQntDiscsIncrement(Integer qntDiscsIncrement) {
+    this.qntDiscsIncrement = qntDiscsIncrement;
   }
 
 
