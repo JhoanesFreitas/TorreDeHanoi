@@ -2,6 +2,7 @@ package com.jho.alana.hanoi;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
   private LinearLayout layoutTowerA;
   private LinearLayout layoutTowerB;
   private LinearLayout layoutTowerC;
+
+  private LinearLayout layoutTowerOri;
+  private LinearLayout layoutTowerDest;
 
   private View newTower;
   private Integer qntDiscsIncrement;
@@ -182,22 +186,41 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
   /////////////////////////
 
-  public void hanoi(Queue queue){
-    View mTowerView;
-    Integer n;
-    while(!queue.isEmpty()){
-      n = (Integer) queue.remove();
-      layoutTowerA = (LinearLayout) queue.remove();
-      layoutTowerB = (LinearLayout) queue.remove();
+  public void hanoi(final Queue queue){
 
-      mTowerView = layoutTowerA.findViewById(n);
+    new CountDownTimer(3000, 1000) {
 
-      if(mTowerView != null){
-        layoutTowerA.removeView(mTowerView);
-        layoutTowerB.addView(mTowerView);
+      @Override
+      public void onTick(long millisUntilFinished) {
+
       }
 
-    }
+      @Override
+      public void onFinish() {
+
+        View mTowerView;
+        Integer n;
+        //while (!queue.isEmpty()) {
+          n = (Integer) queue.remove();
+          layoutTowerA = (LinearLayout) queue.remove();
+          layoutTowerB = (LinearLayout) queue.remove();
+
+          mTowerView = layoutTowerA.findViewById(n);
+
+          if (mTowerView != null) {
+            layoutTowerA.removeView(mTowerView);
+            layoutTowerB.addView(mTowerView);
+          }
+
+        //}
+
+        if (queue.isEmpty()) {
+          this.cancel();
+        } else {
+          hanoi(queue);
+        }
+      }
+    }.start();
   }
 
 
