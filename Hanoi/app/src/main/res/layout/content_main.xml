@@ -115,6 +115,6 @@
         android:onClick="onClick"
         android:textColor="@color/colorTextBtn"
         android:textSize="15dp"
-        android:background="@color/colorBtnGenerate"/>
+        android:background="@color/colorAccent"/>
 
 </RelativeLayout>
